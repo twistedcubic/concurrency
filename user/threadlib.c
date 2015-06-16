@@ -49,7 +49,7 @@ int thread_join(int pid)
     return -1;
   //free memory
   struct node *prev; //previous node preceding the one with pid
-  struct node *temp;// = (struct node*)malloc(sizeof(node));
+  struct node *temp;
   for(temp = root; temp->next != NULL; temp = temp->next)
     {
       if(temp->pid == ret)
@@ -84,9 +84,6 @@ void lock_release(lock_t *tl)
   fetch_and_add((uint*)&(tl->turn), 1);
 }
 
-//condition variables
-//cond_t structure     list of waiters
-//linked list
 //list points to first node of linked list
 void cv_wait(cond_t *list, lock_t *tl)
 {
@@ -108,14 +105,6 @@ void cv_wait(cond_t *list, lock_t *tl)
     }
 
   cv_waitK(list, tl);//system call to kernel to sleep, release locks
-  ////////////////////////
-
-  //queue to the waiting list
-  ///
-  //release lock
-  //put thread to sleep
-  ///
-  //acquire lock??
 }
 
 void cv_signal(cond_t *list)
